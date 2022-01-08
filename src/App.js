@@ -12,19 +12,19 @@ function App() {
       <Layout>
         <Switch>
           <Route path="/" exact>
-            <Redirect to="/users" />
+            <Redirect to="/ReactUsersApp/users" />
           </Route>
-          <Route path="/users" exact>
+          <Route path="/ReactUsersApp/users" exact>
             <AllUsers />
           </Route>
-          <Route path="/users/:userId">
+          <Route path="/ReactUsersApp/users/:userId">
             <UserDetail />
           </Route>
-          <Route path="/new-user">
+          <Route path="/ReactUsersApp/new-user">
             <NewUser />
           </Route>
           <Route path="/ReactUsersApp" exact>
-            <Redirect to="/users" />
+            <Redirect to="/ReactUsersApp/users" />
           </Route>
           <Route path="*">
             <NotFound />

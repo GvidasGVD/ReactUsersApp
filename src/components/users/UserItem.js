@@ -14,7 +14,7 @@ const UserItem = (props) => {
         <figcaption>Tel.: {props.phone}</figcaption>
         <figcaption>Email: {props.email}</figcaption>
       </figure>
-      <Link className="btn users_details_btn" to={`/users/${props.id}`}>
+      <Link className="btn users_details_btn" to={`/ReactUsersApp/users/${props.id}`}>
         View Details
       </Link>
 

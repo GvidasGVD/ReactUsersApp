@@ -19,12 +19,12 @@ const MainNavigation = () => {
       <nav className={classes.nav}>
         <ul>
           <li>
-            <NavLink to="/users" activeClassName={classes.active}>
+            <NavLink to="/ReactUsersApp/users" activeClassName={classes.active}>
               All Users
             </NavLink>
           </li>
           <li>
-            <NavLink to="/new-user" activeClassName={classes.active}>
+            <NavLink to="/ReactUsersApp/new-user" activeClassName={classes.active}>
               Add New User
             </NavLink>
           </li>

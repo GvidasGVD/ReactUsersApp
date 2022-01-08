@@ -34,7 +34,7 @@ const UserDetails = (props) => {
           label: "Yes",
           onClick: () => {
             userCtx.removeUser(props.id);
-            history.push("/users");
+            history.push("/ReactUsersApp/users");
           },
         },
         {
@@ -165,7 +165,7 @@ const UserDetails = (props) => {
         <p>{!editing ? props.passport_number : usersPassportNoInput}</p>
       </div>
       <div className={classes.btnField}>
-        <Link className={`btn ${classes.detailsBtn}`} to={"/users"}>
+        <Link className={`btn ${classes.detailsBtn}`} to={"/ReactUsersApp/users"}>
           Back
         </Link>
         <button

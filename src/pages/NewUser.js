@@ -17,7 +17,7 @@ const NewUser = () => {
 
   const addUserHandler = (userData) => {
     userCtx.addUser(userData);
-    history.push("/users");
+    history.push("/ReactUsersApp/users");
     // sendRequest(userData)
   };
   return <NewUserForm onAddUser={addUserHandler} />;

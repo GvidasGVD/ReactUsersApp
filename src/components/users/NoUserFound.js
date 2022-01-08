@@ -5,7 +5,7 @@ const NoUserFound = () => {
   return (
     <div className={classes.nousers}>
       <p>No users found!</p>
-      <Link className='btn' to='/new-user'>
+      <Link className='btn' to='/ReactUsersApp/new-user'>
         Add New User
       </Link>
     </div>
