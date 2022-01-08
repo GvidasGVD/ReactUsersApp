@@ -23,7 +23,7 @@ function App() {
           <Route path="/new-user">
             <NewUser />
           </Route>
-          <Route path="/usersWebApp" exact>
+          <Route path="/ReactUsersApp" exact>
             <Redirect to="/users" />
           </Route>
           <Route path="*">
