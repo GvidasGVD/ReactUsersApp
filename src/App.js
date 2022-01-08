@@ -12,9 +12,9 @@ function App() {
       <Layout>
         <Switch>
           <Route path="/" exact>
-            <Redirect to="/ReactUsersApp/users" />
+            <Redirect to="/ReactUsersApp" />
           </Route>
-          <Route path="/ReactUsersApp/users" exact>
+          <Route path="/ReactUsersApp" exact>
             <AllUsers />
           </Route>
           <Route path="/ReactUsersApp/users/:userId">
@@ -23,8 +23,8 @@ function App() {
           <Route path="/ReactUsersApp/new-user">
             <NewUser />
           </Route>
-          <Route path="/ReactUsersApp" exact>
-            <Redirect to="/ReactUsersApp/users" />
+          <Route path="/ReactUsersApp/users" exact>
+            <Redirect to="/ReactUsersApp" />
           </Route>
           <Route path="*">
             <NotFound />
