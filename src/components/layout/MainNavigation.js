@@ -9,7 +9,7 @@ const MainNavigation = () => {
         Users Web App
         <a
         className={classes.linkToGit}
-          href="https://github.com/GvidasGVD/usersWebApp/tree/master/src"
+          href="https://github.com/GvidasGVD/ReactUsersApp/tree/master"
           target="_blank"
           rel="noopener noreferrer"
         >

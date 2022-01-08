@@ -10,7 +10,6 @@ const UserItem = (props) => {
         <blockquote>
           <p>{props.name}</p>
           <p>{props.surname}</p>
-          <p>{props.id}</p>
         </blockquote>
         <figcaption>Tel.: {props.phone}</figcaption>
         <figcaption>Email: {props.email}</figcaption>
