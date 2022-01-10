@@ -5,13 +5,16 @@ import React, { useState, useRef, useContext } from "react";
 // import { deleteUser } from "../../api/userApi";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { userSchema } from "../../validations/UserValidation";
+// import { userSchema } from "../../validations/UserValidation";
 import UserContext from "../../userStorage/user-context";
+import { validateUserData } from "../../validations/FormDataValidation";
 
 const UserDetails = (props) => {
   const history = useHistory();
   const userCtx = useContext(UserContext);
   const [editing, setEditing] = useState(false);
+  const [error, setError] = useState();
+
   // const { sendRequest: sendtDeleteRequest, status: deleteStatus } = useHttp(
   //   deleteUser,
   //   true
@@ -47,7 +50,7 @@ const UserDetails = (props) => {
 
   // useEffect(() => {
   //   if (deleteStatus === "completed") {
-    // history.push("/users");
+  // history.push("/users");
   //   }
   // }, [deleteStatus, history]);
 
@@ -95,12 +98,27 @@ const UserDetails = (props) => {
       passport_number: enteredPassportnumber,
     };
     editToggleUserHandler();
-    const isValid = await userSchema.isValid(userData);
-    if (isValid) {
-      props.sendUpdateRequest(userData);
+    const {
+      isValid,
+      title: errorTitle,
+      message: errorMessage,
+    } = validateUserData(userData);
+
+    if (!isValid) {
+      setError({
+        title: errorTitle,
+        message: errorMessage,
+      });
+      return;
     } else {
-      alert("Could not update, wrong values inserted");
+      props.sendUpdateRequest(userData, props.id);
     }
+    // const isValid = await userSchema.isValid(userData);
+    // if (isValid) {
+    //   props.sendUpdateRequest(userData);
+    // } else {
+    //   alert("Could not update, wrong values inserted");
+    // }
   };
 
   const usersNameInput = (
@@ -120,7 +138,12 @@ const UserDetails = (props) => {
     <input type="number" placeholder={props.phone} ref={phoneInputRef} />
   );
   const usersIdentityInput = (
-    <input type="number" placeholder={props.identity} ref={identityInputRef} />
+    <select id="identity" ref={identityInputRef}>
+    <option value="ID">
+      ID
+    </option>
+    <option value="Passport">Passport</option>
+  </select>
   );
   const usersPassportNoInput = (
     <input
@@ -132,6 +155,13 @@ const UserDetails = (props) => {
 
   return (
     <div className={classes.details}>
+      {error && (
+        <div className={classes.error_box}>
+          {" "}
+          <div className={classes.error_title}>{error.title}</div>
+          <div className={classes.error_message}>{error.message}</div>
+        </div>
+      )}
       <div className={classes.flex}>
         <p>Name: </p>
         <p>{!editing ? props.name : usersNameInput}</p>
@@ -165,7 +195,10 @@ const UserDetails = (props) => {
         <p>{!editing ? props.passport_number : usersPassportNoInput}</p>
       </div>
       <div className={classes.btnField}>
-        <Link className={`btn ${classes.detailsBtn}`} to={"/ReactUsersApp/users"}>
+        <Link
+          className={`btn ${classes.detailsBtn}`}
+          to={"/ReactUsersApp/users"}
+        >
           Back
         </Link>
         <button

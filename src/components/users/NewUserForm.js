@@ -1,7 +1,8 @@
-import { useRef } from "react";
-import { userSchema } from "../../validations/UserValidation";
+import { useRef, useState } from "react";
+// import { userSchema } from "../../validations/UserValidation";
 import Card from "../ui/Card";
 import classes from "./NewUserForm.module.css";
+import { validateUserData } from "../../validations/FormDataValidation";
 
 const NewUserForm = (props) => {
   const nameInputRef = useRef();
@@ -12,6 +13,7 @@ const NewUserForm = (props) => {
   const phoneInputRef = useRef();
   const identityInputRef = useRef();
   const passportnumberInputRef = useRef();
+  const [error, setError] = useState();
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -25,7 +27,7 @@ const NewUserForm = (props) => {
     const enteredPassportnumber = passportnumberInputRef.current.value;
 
     const userData = {
-      id: 'u' + (Math.random()*1000000).toFixed().toString(),
+      id: "u" + (Math.random() * 1000000).toFixed().toString(),
       name: enteredName,
       surname: enteredSurname,
       birth_date: enteredBirthdate,
@@ -35,16 +37,38 @@ const NewUserForm = (props) => {
       identity: enteredIdentity,
       passport_number: enteredPassportnumber,
     };
-    const isValid = await userSchema.isValid(userData);
-    if (isValid) {
-      props.onAddUser(userData);
+    const {
+      isValid,
+      title: errorTitle,
+      message: errorMessage,
+    } = validateUserData(userData);
+
+    if (!isValid) {
+      setError({
+        title: errorTitle,
+        message: errorMessage,
+      });
+      return;
     } else {
-      alert("Could not create, wrong values inserted");
+      props.onAddUser(userData);
     }
+    // const isValid = await userSchema.isValid(userData);
+    // if (isValid) {
+    //   props.onAddUser(userData);
+    // } else {
+    //   alert("Could not create, wrong values inserted");
+    // }
   };
 
   return (
     <Card>
+      {error && (
+        <div className={classes.error_box}>
+          {" "}
+          <div className={classes.error_title}>{error.title}</div>
+          <div className={classes.error_message}>{error.message}</div>
+        </div>
+      )}
       <form className={classes.form} onSubmit={submitHandler}>
         <div className={classes.control}>
           <div className="w-50">
@@ -94,12 +118,12 @@ const NewUserForm = (props) => {
         <div className={classes.control}>
           <div>
             <label htmlFor="identity">Identity</label>
-            <input
-              id="identity"
-              type="number"
-              required
-              ref={identityInputRef}
-            ></input>
+            <select id="identity" ref={identityInputRef} required>
+              <option value="ID" defaultValue>
+                ID
+              </option>
+              <option value="Passport">Passport</option>
+            </select>
           </div>
           <div>
             <label htmlFor="passportnumber">Passport Number</label>

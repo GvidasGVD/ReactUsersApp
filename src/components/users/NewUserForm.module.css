@@ -45,3 +45,16 @@
     background-color: #a50e48;
     border-color: #a50e48;
   }
+
+  .error_box{
+    padding: 1rem;
+    line-height: 1.5;
+  }
+  
+  .error_title {
+    color: red;
+  }
+  
+  .error_message {
+    color: grey;
+  }
