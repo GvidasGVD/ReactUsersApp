@@ -6,7 +6,7 @@ const MainNavigation = () => {
   return (
     <header className={classes.header}>
       <div className={classes.logo}>
-        Users Web App
+        <span>Users Web App</span>
         <a
         className={classes.linkToGit}
           href="https://github.com/GvidasGVD/ReactUsersApp/tree/master"

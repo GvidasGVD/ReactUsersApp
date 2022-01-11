@@ -8,7 +8,7 @@
   background-color: #008080;
 }
 
-.logo {
+.logo span{
   font-size: 2rem;
   color: white;
 }
@@ -40,4 +40,25 @@
   font-size: 20px;
   padding-left: 10px;
   color: white;
+}
+
+.linkToGit:hover {
+  text-shadow: 0px 0px 2px white;
+}
+
+@media (max-width: 600px) {
+  .logo span{
+    font-size: 1rem;
+    display: block;
+  }
+
+  .linkToGit {
+    font-size: 14px;
+    padding-left: 0;
+  }
+
+  .nav li {
+    margin-left: 0.5rem;
+    font-size: 1rem;
+  }
 }

@@ -71,54 +71,73 @@ const NewUserForm = (props) => {
       )}
       <form className={classes.form} onSubmit={submitHandler}>
         <div className={classes.control}>
-          <div className="w-50">
-            <label htmlFor="Name">Name</label>
-            <input type="text" required id="Name" ref={nameInputRef} />
-          </div>
           <div>
-            <label htmlFor="Surname">Surname</label>
-            <input type="text" required id="Surname" ref={surnameInputRef} />
-          </div>
-        </div>
-        <div className={classes.control}>
-          <div>
-            <label htmlFor="birthdate">Birth Date</label>
             <input
-              type="date"
+              type="text"
               required
-              id="birthdate"
-              ref={birthdateInputRef}
+              id="Name"
+              ref={nameInputRef}
+              placeholder="Name"
+              title="Name"
             />
           </div>
           <div>
-            <label htmlFor="email">Email</label>
-            <input id="email" type="email" required ref={emailInputRef}></input>
+            <input
+              type="text"
+              required
+              id="Surname"
+              ref={surnameInputRef}
+              placeholder="Surname"
+              title="Surname"
+            />
           </div>
         </div>
         <div className={classes.control}>
           <div>
-            <label htmlFor="password">Password</label>
+            <input
+              id="email"
+              type="email"
+              required
+              ref={emailInputRef}
+              placeholder="Email"
+              title="Email"
+            ></input>
+          </div>
+          <div>
             <input
               id="password"
               type="password"
               required
               ref={passwordInputRef}
+              placeholder="Password"
+              title="Password"
             ></input>
           </div>
+        </div>
+        <div className={classes.control}>
           <div>
-            <label htmlFor="phone">Phone</label>
             <input
               id="phone"
               type="number"
-              required
               ref={phoneInputRef}
+              placeholder="Phone"
+              title="Phone"
+            ></input>
+          </div>
+          <div>
+            <input
+              id="passportnumber"
+              type="number"
+              ref={passportnumberInputRef}
+              placeholder="Passport/ID number"
+              title="Passport/ID number"
             ></input>
           </div>
         </div>
         <div className={classes.control}>
           <div>
             <label htmlFor="identity">Identity</label>
-            <select id="identity" ref={identityInputRef} required>
+            <select id="identity" ref={identityInputRef} >
               <option value="ID" defaultValue>
                 ID
               </option>
@@ -126,13 +145,12 @@ const NewUserForm = (props) => {
             </select>
           </div>
           <div>
-            <label htmlFor="passportnumber">Passport Number</label>
+            <label htmlFor="birthdate">Birth Date</label>
             <input
-              id="passportnumber"
-              type="number"
-              required
-              ref={passportnumberInputRef}
-            ></input>
+              type="date"
+              id="birthdate"
+              ref={birthdateInputRef}
+            />
           </div>
         </div>
         <div className={classes.actions}>
