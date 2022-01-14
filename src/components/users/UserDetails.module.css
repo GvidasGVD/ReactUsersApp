@@ -16,11 +16,12 @@
 }
 
 .flex p:first-child {
+  font-family:serif, Arial, Helvetica;
   width: 20%;
   padding-top: 10px;
   font-size: 16px;
   text-align: right;
-  padding-right: 10px;
+  padding-right: 20px;
   border-right: 2px solid rgba(0, 0, 0, 0.103);
 }
 
@@ -41,9 +42,10 @@
 }
 
 input {
-  padding: 2px;
+  padding: 2px 10px;
   margin: 0;
-  border: none;
+  border: 1px solid #ccc;
+  border-radius: 20px;
 }
 
 input.passwordInput{
@@ -70,6 +72,40 @@ input.passwordInput:hover{
 
 .error_message {
   color: grey;
+}
+
+.identity_field {
+  border-radius: 20px;
+  padding: 2px 10px;
+  border: 1px solid #ccc;
+
+}
+
+@media (max-width: 600px) {
+  .flex {
+    flex-wrap: wrap;
+  }
+  .flex p:first-child {
+    width: 100%;
+    font-size: 16px;
+    text-align: left;
+    padding-right: 0;
+    padding-left: 20px;
+    border-right: none;
+  }
+  
+  .flex p:last-child {
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    padding: 2px 0;
+  }
+  .detailsBtn {
+    font-size: 15px;
+    margin: 10px 2px 0 2px;
+    padding: 5px;
+  }
+  
 }
 
 

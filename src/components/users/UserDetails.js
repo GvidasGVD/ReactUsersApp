@@ -138,7 +138,7 @@ const UserDetails = (props) => {
     <input type="number" placeholder={props.phone} ref={phoneInputRef} />
   );
   const usersIdentityInput = (
-    <select id="identity" ref={identityInputRef}>
+    <select className={classes.identity_field} id="identity" ref={identityInputRef}>
     <option value="ID">
       ID
     </option>

@@ -66,6 +66,12 @@
     color: grey;
   }
 
+  .error_text {
+    color: red;
+    padding-left: 15px;
+    margin: 0;
+  }
+
   .control select {
     border-radius: 20px;
     padding: 0.25rem 0.75rem;

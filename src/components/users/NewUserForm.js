@@ -3,8 +3,24 @@ import { useRef, useState } from "react";
 import Card from "../ui/Card";
 import classes from "./NewUserForm.module.css";
 import { validateUserData } from "../../validations/FormDataValidation";
+import useInput from "../../hooks/use-input";
 
+const regexOnlyLetters = /^[a-zA-Z].*[\s\.]*$/;
 const NewUserForm = (props) => {
+  const {
+    value: enteredName,
+    isValid: enteredNameIsValid,
+    hasError: nameInputHasError,
+    hasLengthError: nameInputHasLengthError,
+    hasTypeError: nameInputHasTypeError,
+    valueChangeHandler: nameChangeHandler,
+    inputBlurHandler: nameBlurHandler,
+  } = useInput(
+    (value) => value.trim() !== "",
+    (value) => value.length >= 2 && value.length <= 20,
+    (value) => regexOnlyLetters.test(value)
+  );
+
   const nameInputRef = useRef();
   const surnameInputRef = useRef();
   const birthdateInputRef = useRef();
@@ -60,6 +76,15 @@ const NewUserForm = (props) => {
     // }
   };
 
+  var nameInputError = nameInputHasError ? (
+    <p className={classes.error_text}>Name must not be empty.</p>
+  ) : nameInputHasLengthError ? (
+    <p className={classes.error_text}>
+      At least 2 but not more than 20 letters.
+    </p>
+  ) : nameInputHasTypeError ? (
+    <p className={classes.error_text}>Only letters allowed.</p>
+  ) : null;
   return (
     <Card>
       {error && (
@@ -79,8 +104,13 @@ const NewUserForm = (props) => {
               ref={nameInputRef}
               placeholder="Name"
               title="Name"
+              value={enteredName}
+              onChange={nameChangeHandler}
+              onBlur={nameBlurHandler}
             />
+            {nameInputError}
           </div>
+
           <div>
             <input
               type="text"
@@ -137,7 +167,7 @@ const NewUserForm = (props) => {
         <div className={classes.control}>
           <div>
             <label htmlFor="identity">Identity</label>
-            <select id="identity" ref={identityInputRef} >
+            <select id="identity" ref={identityInputRef}>
               <option value="ID" defaultValue>
                 ID
               </option>
@@ -146,11 +176,7 @@ const NewUserForm = (props) => {
           </div>
           <div>
             <label htmlFor="birthdate">Birth Date</label>
-            <input
-              type="date"
-              id="birthdate"
-              ref={birthdateInputRef}
-            />
+            <input type="date" id="birthdate" ref={birthdateInputRef} />
           </div>
         </div>
         <div className={classes.actions}>
