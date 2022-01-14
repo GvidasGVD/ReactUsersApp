@@ -72,6 +72,10 @@
     margin: 0;
   }
 
+  .error_input_border{
+    border: 2px solid rgba(236, 45, 45, 0.884)!important;
+  }
+
   .control select {
     border-radius: 20px;
     padding: 0.25rem 0.75rem;

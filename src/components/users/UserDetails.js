@@ -127,7 +127,7 @@ const UserDetails = (props) => {
   const usersSurnameInput = (
     <input type="text" placeholder={props.surname} ref={surnameInputRef} />
   );
-  const usersNameInBirthDateput = <input type="date" ref={birthdateInputRef} />;
+  const usersNameInBirthDateput = <input type="date" ref={birthdateInputRef}/>;
   const usersEmailInput = (
     <input type="email" placeholder={props.email} ref={emailInputRef} />
   );

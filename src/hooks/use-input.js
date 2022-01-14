@@ -5,8 +5,8 @@ const useInput = (validateValue, validateLength, validateType) => {
   const [isTouched, setIsTouched] = useState(false);
   const [hasLengthError, setHasLengthError] = useState(false);
   const [hasTypeError, setHasTypeError] = useState(false);
-  console.log(hasLengthError);
-  const valueIsValid = validateValue(enteredValue);
+  const [hasEmptyError, setHasEmptyError] = useState(false);
+  const [valueIsValid, setValueIsValid] = useState(true);
   //   const valueLengthIsValid = '';
   const hasError = !valueIsValid && isTouched;
 
@@ -20,16 +20,29 @@ const useInput = (validateValue, validateLength, validateType) => {
 
   useEffect(() => {
     const identifier = setTimeout(() => {
+      if(!validateValue(enteredValue) && isTouched){
+        setHasEmptyError(true)
+        setValueIsValid(false)
+      } else {
+        setHasEmptyError(false)
+      }
+
       if (!validateLength(enteredValue) && isTouched) {
         setHasLengthError(true);
+        setValueIsValid(false)
       } else {
         setHasLengthError(false);
       }
 
       if (!validateType(enteredValue) && isTouched) {
         setHasTypeError(true);
+        setValueIsValid(false)
       } else {
         setHasTypeError(false);
+      }
+
+      if(validateValue(enteredValue) && validateLength(enteredValue) && validateType(enteredValue) && isTouched){
+        setValueIsValid(true)
       }
     }, 500);
 
@@ -41,6 +54,7 @@ const useInput = (validateValue, validateLength, validateType) => {
   return {
     value: enteredValue,
     hasError,
+    hasEmptyError,
     hasLengthError,
     hasTypeError,
     isValid: valueIsValid,
