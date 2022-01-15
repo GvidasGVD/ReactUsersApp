@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-const useInput = (validateValue, validateLength, validateType) => {
+const useInput = (inputType, validateValue, validateLength, validateType) => {
   const [enteredValue, setEnteredValue] = useState("");
   const [isTouched, setIsTouched] = useState(false);
-  const [hasLengthError, setHasLengthError] = useState(false);
-  const [hasTypeError, setHasTypeError] = useState(false);
-  const [hasEmptyError, setHasEmptyError] = useState(false);
   const [valueIsValid, setValueIsValid] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
   //   const valueLengthIsValid = '';
   const hasError = !valueIsValid && isTouched;
 
@@ -18,45 +16,132 @@ const useInput = (validateValue, validateLength, validateType) => {
     setIsTouched(true);
   };
 
+  const setErrorMessageByInputType = useCallback((errorType) => {
+    setValueIsValid(false);
+    console.log('this happend')
+    switch (inputType) {
+      case "name":
+        switch (errorType) {
+          case "empty":
+            setErrorMessage("Name must not be empty.");
+            break;
+          case "length":
+            setErrorMessage("At least 2 but not more than 20 letters.");
+            break;
+          case "type":
+            setErrorMessage("Only letters allowed.");
+            break;
+          default:
+            setErrorMessage("");
+            break;
+        }
+        break;
+      case "surname":
+        switch (errorType) {
+          case "empty":
+            setErrorMessage("Surname must not be empty.");
+            break;
+          case "length":
+            setErrorMessage("At least 2 but not more than 20 letters.");
+            break;
+          case "type":
+            setErrorMessage("Only letters allowed.");
+            break;
+          default:
+            setErrorMessage("");
+            break;
+        }
+        break;
+      case "email":
+        switch (errorType) {
+          case "empty":
+            setErrorMessage("Email must not be empty.");
+            break;
+          case "length":
+            setErrorMessage("At least 5 but not more than 50 characters.");
+            break;
+          case "type":
+            setErrorMessage("Invalid Email format.");
+            break;
+          default:
+            setErrorMessage("");
+            break;
+        }
+        break;
+      case "password":
+        switch (errorType) {
+          case "empty":
+            setErrorMessage("Password must not be empty.");
+            break;
+          case "length":
+            setErrorMessage("At least 6 but not more than 16 characters.");
+            break;
+          default:
+            setErrorMessage("");
+            break;
+        }
+        break;
+      case "phone":
+        switch (errorType) {
+          case "length":
+            setErrorMessage("At least 5 but not more than 13 numbers.");
+            break;
+          case "type":
+            setErrorMessage("Invalid phone number format.");
+            break;
+          default:
+            setErrorMessage("");
+            break;
+        }
+        break;
+      case "passport_number":
+        switch (errorType) {
+          case "length":
+            setErrorMessage("At least 5 but not more than 9 numbers.");
+            break;
+          case "type":
+            setErrorMessage("Invalid passport number format.");
+            break;
+          default:
+            setErrorMessage("");
+            break;
+        }
+        break;
+      default:
+        setErrorMessage("");
+        break;
+    }
+  }, [inputType]);
+
   useEffect(() => {
     const identifier = setTimeout(() => {
-      if(!validateValue(enteredValue) && isTouched){
-        setHasEmptyError(true)
-        setValueIsValid(false)
-      } else {
-        setHasEmptyError(false)
+      if (!validateValue(enteredValue) && isTouched) {
+        setErrorMessageByInputType("empty");
+        return;
       }
 
-      if (!validateLength(enteredValue) && isTouched) {
-        setHasLengthError(true);
-        setValueIsValid(false)
-      } else {
-        setHasLengthError(false);
+      if (enteredValue && !validateLength(enteredValue) && isTouched) {
+        setErrorMessageByInputType("length");
+        return;
       }
 
-      if (!validateType(enteredValue) && isTouched) {
-        setHasTypeError(true);
-        setValueIsValid(false)
-      } else {
-        setHasTypeError(false);
+      if (enteredValue && !validateType(enteredValue) && isTouched) {
+        setErrorMessageByInputType("type");
+        return;
       }
-
-      if(validateValue(enteredValue) && validateLength(enteredValue) && validateType(enteredValue) && isTouched){
-        setValueIsValid(true)
-      }
-    }, 500);
+      setValueIsValid(true);
+      setErrorMessage("");
+    }, 1000);
 
     return () => {
       clearTimeout(identifier);
     };
-  }, [enteredValue, isTouched, validateLength]);
+  }, [enteredValue, isTouched, validateValue, validateLength, validateType, setErrorMessageByInputType]);
 
   return {
     value: enteredValue,
     hasError,
-    hasEmptyError,
-    hasLengthError,
-    hasTypeError,
+    errorMessage,
     isValid: valueIsValid,
     valueChangeHandler,
     inputBlurHandler,

@@ -13,7 +13,7 @@ const defaultUserState = {
       email: "tomriddle@gmail.com",
       password: "a4da6sd7",
       phone: 8675554687,
-      identity: 45,
+      identity: 'ID',
       passport_number: 46787987,
     },
     {
@@ -24,7 +24,7 @@ const defaultUserState = {
       email: "Wangog@gmail.com",
       password: "asdasdasd",
       phone: 45647784,
-      identity: 456,
+      identity: 'ID',
       passport_number: 7898457,
     },
   ],

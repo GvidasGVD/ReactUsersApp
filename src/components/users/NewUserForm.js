@@ -5,7 +5,7 @@ import classes from "./NewUserForm.module.css";
 import { validateUserData } from "../../validations/FormDataValidation";
 import useInput from "../../hooks/use-input";
 
-const regexOnlyLetters = /^[a-zA-Z].*[\s\.]*$/;
+const regexOnlyLetters = /^[a-zA-Z].*[\s.]*$/;
 const regexOnlyNumbers = /^[0-9]*$/;
 const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -13,12 +13,11 @@ const NewUserForm = (props) => {
   const {
     value: enteredName,
     isValid: enteredNameIsValid,
-    hasEmptyError: nameInputHasEmptyError,
-    hasLengthError: nameInputHasLengthError,
-    hasTypeError: nameInputHasTypeError,
+    errorMessage: nameInputErrorMessage,
     valueChangeHandler: nameChangeHandler,
     inputBlurHandler: nameBlurHandler,
   } = useInput(
+    'name',
     (value) => value.trim() !== "",
     (value) => value.length >= 2 && value.length <= 20,
     (value) => regexOnlyLetters.test(value)
@@ -27,12 +26,11 @@ const NewUserForm = (props) => {
   const {
     value: enteredSurname,
     isValid: enteredSurnameIsValid,
-    hasEmptyError: surnameInputHasEmptyError,
-    hasLengthError: surnameInputHasLengthError,
-    hasTypeError: surnameInputHasTypeError,
+    errorMessage: surnameInputErrorMessage,
     valueChangeHandler: surnameChangeHandler,
     inputBlurHandler: surnameBlurHandler,
   } = useInput(
+    'surname',
     (value) => value.trim() !== "",
     (value) => value.length >= 2 && value.length <= 20,
     (value) => regexOnlyLetters.test(value)
@@ -41,12 +39,11 @@ const NewUserForm = (props) => {
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
-    hasEmptyError: emailInputHasEmptyError,
-    hasLengthError: emailInputHasLengthError,
-    hasTypeError: emailInputHasTypeError,
+    errorMessage: emailInputErrorMessage,
     valueChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
   } = useInput(
+    'email',
     (value) => value.trim() !== "",
     (value) => value.length >= 5 && value.length <= 50,
     (value) => regexEmail.test(value)
@@ -55,11 +52,11 @@ const NewUserForm = (props) => {
   const {
     value: enteredPassword,
     isValid: enteredPasswordIsValid,
-    hasEmptyError: passwordInputHasEmptyError,
-    hasLengthError: passwordInputHasLengthError,
+    errorMessage: passwordInputErrorMessage,
     valueChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
   } = useInput(
+    'password',
     (value) => value.trim() !== "",
     (value) => value.length >= 6 && value.length <= 15,
     (value) => (value) // here should use regex for passwords
@@ -68,12 +65,12 @@ const NewUserForm = (props) => {
   const {
     value: enteredPhone,
     isValid: enteredPhoneIsValid,
-    hasLengthError: phoneInputHasLengthError,
-    hasTypeError: phoneInputHasTypeError,
+    errorMessage: phoneInputErrorMessage,
     valueChangeHandler: phoneChangeHandler,
     inputBlurHandler: phoneBlurHandler,
   } = useInput(
-    (value) => (value),
+    'phone',
+    (value) => true,
     (value) => value.length >= 5 && value.length <= 13,
     (value) => regexOnlyNumbers.test(value)
   );
@@ -81,12 +78,12 @@ const NewUserForm = (props) => {
   const {
     value: enteredPassportNumber,
     isValid: enteredPassportNumberIsValid,
-    hasLengthError: passportNumberInputHasLengthError,
-    hasTypeError: passportNumberInputHasTypeError,
+    errorMessage: passportNumberInputErrorMessage,
     valueChangeHandler: passportNumberChangeHandler,
     inputBlurHandler: passportNumberBlurHandler,
   } = useInput(
-    (value) => (value),
+    'passport_number',
+    (value) => true,
     (value) => value.length >= 5 && value.length <= 9,
     (value) => regexOnlyNumbers.test(value)
   );
@@ -146,73 +143,31 @@ const NewUserForm = (props) => {
     // }
   };
 
-  var nameInputErrorText = nameInputHasEmptyError
-    ? "Name must not be empty."
-    : nameInputHasLengthError
-    ? "At least 2 but not more than 20 letters."
-    : nameInputHasTypeError
-    ? "Only letters allowed."
-    : null;
-
   var nameInputError = (
-    <p className={classes.error_text}>{nameInputErrorText}</p>
+    <p className={classes.error_text}>{nameInputErrorMessage}</p>
   );
-
-  var surnameInputErrorText = surnameInputHasEmptyError
-    ? "Surname must not be empty."
-    : surnameInputHasLengthError
-    ? "At least 2 but not more than 20 letters."
-    : surnameInputHasTypeError
-    ? "Only letters allowed."
-    : null;
+  
 
   var surnameInputError = (
-    <p className={classes.error_text}>{surnameInputErrorText}</p>
+    <p className={classes.error_text}>{surnameInputErrorMessage}</p>
   );
-
-  var emailInputErrorText = emailInputHasEmptyError
-    ? "Email must not be empty."
-    : emailInputHasLengthError
-    ? "At least 5 but not more than 50 characters."
-    : emailInputHasTypeError
-    ? "Invalid Email format."
-    : null;
 
   var emailInputError = (
-    <p className={classes.error_text}>{emailInputErrorText}</p>
+    <p className={classes.error_text}>{emailInputErrorMessage}</p>
   );
 
-  var passwordInputErrorText = passwordInputHasEmptyError
-  ? "Password must not be empty."
-  : passwordInputHasLengthError
-  ? "At least 6 but not more than 16 characters."
-  : null;
 
 var passwordInputError = (
-  <p className={classes.error_text}>{passwordInputErrorText}</p>
+  <p className={classes.error_text}>{passwordInputErrorMessage}</p>
 );
-
-var phoneInputErrorText = phoneInputHasLengthError
-? "At least 5 but not more than 13 characters."
-: phoneInputHasTypeError
-? "Invalid phone number format."
-: null;
 
 var phoneInputError = (
-<p className={classes.error_text}>{phoneInputErrorText}</p>
+<p className={classes.error_text}>{phoneInputErrorMessage}</p>
 );
-
-var passportNumberInputErrorText = passportNumberInputHasLengthError
-? "At least 5 but not more than 9 characters."
-: passportNumberInputHasTypeError
-? "Invalid passport number number format."
-: null;
 
 var passportNumberInputError = (
-<p className={classes.error_text}>{passportNumberInputErrorText}</p>
+<p className={classes.error_text}>{passportNumberInputErrorMessage}</p>
 );
-
-
 
   return (
     <Card>
@@ -313,6 +268,7 @@ var passportNumberInputError = (
               title="Passport/ID number"
               onChange={passportNumberChangeHandler}
               onBlur={passportNumberBlurHandler}
+              value={enteredPassportNumber}
               className={`${!enteredPassportNumberIsValid ? classes.error_input_border: ''}`}
             ></input>
             {passportNumberInputError}
