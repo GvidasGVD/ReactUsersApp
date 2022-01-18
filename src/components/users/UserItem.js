@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./UserItem.module.css";
 import { Link } from "react-router-dom";
+import { BsTelephone, BsEnvelope } from "react-icons/bs";
 
 const UserItem = (props) => {
 
@@ -11,8 +12,8 @@ const UserItem = (props) => {
           <p>{props.name}</p>
           <p>{props.surname}</p>
         </blockquote>
-        <figcaption>Tel.: {props.phone}</figcaption>
-        <figcaption>Email: {props.email}</figcaption>
+        <figcaption><BsTelephone className={classes.icons} /> {props.phone}</figcaption>
+        <figcaption><BsEnvelope className={classes.icons}/> {props.email}</figcaption>
       </figure>
       <Link className="btn users_details_btn" to={`/ReactUsersApp/users/${props.id}`}>
         View Details

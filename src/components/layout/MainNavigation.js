@@ -19,7 +19,7 @@ const MainNavigation = () => {
       <nav className={classes.nav}>
         <ul>
           <li>
-            <NavLink to="/ReactUsersApp/users" activeClassName={classes.active}>
+            <NavLink to="/ReactUsersApp" exact activeClassName={classes.active}>
               All Users
             </NavLink>
           </li>

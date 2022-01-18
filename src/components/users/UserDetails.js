@@ -111,6 +111,10 @@ const UserDetails = (props) => {
       });
       return;
     } else {
+      setError({
+        title: '',
+        message: '',
+      });
       props.sendUpdateRequest(userData, props.id);
     }
     // const isValid = await userSchema.isValid(userData);

@@ -17,6 +17,7 @@
   margin: 0;
   padding: 0;
   width: 70%;
+  line-height: 1.2;
 }
 
 .item blockquote {
@@ -36,6 +37,12 @@
 }
 
 .item figcaption {
+  display: flex;
   font-style: italic;
   color: #566d6d;
+  align-items: center;
+}
+
+.icons{
+  margin-right: 10px;
 }
